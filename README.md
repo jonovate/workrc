@@ -11,6 +11,7 @@ My Defaults For New Install:
 
 ## First Use
 ```
+mkdir ~/.workrc && cd ~/.workrc
 git clone https://github.com/jonovate/workrc.git .
 sh zInstallOnce.sh
 ```
