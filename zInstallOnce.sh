@@ -12,7 +12,7 @@ vim_runtime=~/.vim_runtime
 {
 if [ -f ./$0.lok ]; then
    echo "Script already has been run! Remove $0.lok to run again..."
-   exit 0
+   exit 1
 fi
 }
 
