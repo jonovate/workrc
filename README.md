@@ -5,7 +5,7 @@
 My Defaults For New Install:
 * Extract bash function
 * Work HTTP Proxy (Environmental variables, proxy on/off function)
-* Git Setup (User, Credential Caching, Legaxy Proxy)
+* Git Setup (User, Credential Caching, Proxy)
 * NPM Setup (Proxy)
 * VIM Setup (Clone from git and setup .vimrc)
 
