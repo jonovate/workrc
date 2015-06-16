@@ -10,7 +10,10 @@ My Defaults For New Install:
 * VIM Setup (Clone from git and setup .vimrc)
 
 ## First Use
+
 ```
+export $WORK_PROXY="<proxy>"
+
 mkdir ~/.workrc && cd ~/.workrc
 git clone https://github.com/jonovate/workrc.git .
 sh zInstallOnce.sh

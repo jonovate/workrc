@@ -1,14 +1,4 @@
 #!/bin/bash
-
-#Change if necessary
-work_proxy="http://web-proxy:8080"
-git_email=jjhowey@gmail.com
-git_name=jonovate
-git_cred_helper=cache
-vim_git_url=https://github.com/jonovate/vimrc.git
-vim_runtime=~/.vim_runtime
-
-###
 {
 if [ -f ./$0.lok ]; then
    echo "Script already has been run! Remove $0.lok to run again..."
@@ -17,23 +7,32 @@ fi
 }
 
 echo -e "----- START -----"
+
+#Change if necessary
+if [ -z ${WORK_PROXY+x} ]; then work_proxy="http://web-proxy:8080"; else work_proxy=$WORK_PROXY; fi
+git_email=jjhowey@gmail.com
+git_name=jonovate
+git_cred_helper=cache
+vim_git_url=https://github.com/jonovate/vimrc.git
+vim_runtime=~/.vim_runtime
+
+
 echo -e "\n\n###########\n# .workrc #\n###########" >> ~/.bashrc
 
-echo -e "\nexport WORK_PROXY=\"$work_proxy\"" >> ~/.bashrc
-
-echo "Adding extract...."
-echo -e "\nif [ -s ~/.workrc/extract ]; then
-    source ~/.workrc/extract
-fi" >> ~/.bashrc
-echo " DONE"
-
 echo "Adding proxy...."
+echo " Proxy: $work_proxy"
+echo -e "\nexport WORK_PROXY=\"$work_proxy\"\n" >> ~/.bashrc
 
 export WORK_PROXY=$work_proxy
 echo -e "if [ -s ~/.workrc/proxy ]; then
     source ~/.workrc/proxy
 fi" >> ~/.bashrc
+echo " DONE"
 
+echo "Adding extract...."
+echo -e "\nif [ -s ~/.workrc/extract ]; then
+    source ~/.workrc/extract
+fi" >> ~/.bashrc
 echo " DONE"
 
 source ~/.bashrc
