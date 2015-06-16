@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #Change if necessary
 work_proxy="http://web-proxy:8080"
 git_email=jjhowey@gmail.com
@@ -8,7 +10,7 @@ vim_runtime=~/.vim_runtime
 
 ###
 {
-if [[ -f ./$0.lok ]]; then
+if [ -f ./$0.lok ]; then
    echo "Script already has been run! Remove $0.lok to run again..."
    exit 0
 fi
@@ -20,7 +22,7 @@ echo -e "\n\n###########\n# .workrc #\n###########" >> ~/.bashrc
 echo -e "\nexport WORK_PROXY=\"$work_proxy\"" >> ~/.bashrc
 
 echo "Adding extract...."
-echo -e "\nif [[ -s ~/.workrc/extract ]]; then
+echo -e "\nif [ -s ~/.workrc/extract ]; then
     source ~/.workrc/extract
 fi" >> ~/.bashrc
 echo " DONE"
@@ -28,7 +30,7 @@ echo " DONE"
 echo "Adding proxy...."
 
 export WORK_PROXY=$work_proxy
-echo -e "if [[ -s ~/.workrc/proxy ]]; then
+echo -e "if [ -s ~/.workrc/proxy ]; then
     source ~/.workrc/proxy
 fi" >> ~/.bashrc
 
@@ -61,5 +63,5 @@ fi
 echo -e "----- DONE -----"
 echo "DONE" >> $0.lok
 
-echo -e "extract \"filename.ext\" on any compressed file"
+echo -e "extract \"file\" on any compressed file"
 echo -e "proxy_on to enable proxy, proxy_off to disable it"
