@@ -4,7 +4,7 @@
 
 My Defaults For New Install:
 * Extract bash function
-* Work HTTP Proxy (Environmental variables, proxy on/off function including git, maven, NPM)
+* Work HTTP Proxy (Environmental variables, proxy on/off function including Git, maven, NPM)
 * Git Setup (User, Credential Caching)
 * Maven Setup (Nothing Yet)
 * NPM Setup (Nothing Yet)

@@ -50,7 +50,12 @@ fi
 
 #MVN
 echo "Configuring maven...."
-echo "   NO ACTION - Check settings.xml. See ./samples/maven/"
+if hash mvn 2>/dev/null; then
+   echo "   NO ACTION - Check settings.xml. See ./samples/maven/"
+else
+   echo "   WARNING: mvn was not found"
+fi
+
 
 #NPM
 echo "Configuring npm...."
