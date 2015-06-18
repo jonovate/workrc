@@ -8,18 +8,35 @@ function proxy_on() {
       VAGRANT_ENV_HTTP_PROXY=$HTTP_PROXY VAGRANT_ENV_HTTPS_PROXY=$HTTPS_PROXY \
       VAGRANT_ENV_FTP_PROXY=$FTP_PROXY VAGRANT_ENV_NO_PROXY=$NO_PROXY \
       VAGRANT_APT_HTTP_PROXY=$HTTP_PROXY VAGRANT_APT_HTTPS_PROXY=$HTTPS_PROXY \
-      VAGRANT_APT_FTP_PROXY=$FTP_PROXY VAGRANT_YUM_HTTP_PROXY=$HTTP_PROXY  
-   echo -e "\nProxy-related environment variables set."
+      VAGRANT_APT_FTP_PROXY=$FTP_PROXY VAGRANT_YUM_HTTP_PROXY=$HTTP_PROXY
+   
+   #GIT
+   git config --global http.proxy $WORK_PROXY
+   
+   #NPM
+   npm config set proxy $WORK_PROXY
+   npm config set https-proxy $WORK_PROXY
+   
+   echo -e "\nProxy-related configs and environment variables set."
 }
  
 function proxy_off() {
+
    variables=(
-      "HTTP_PROXY" "HTTPS_PROXY" "FTP_PROXY" "ALL_PROXY" "NO_PROXY" \
+      "HTTP_PROXY" "http_proxy" "HTTPS_PROXY" "https_proxy" "FTP_PROXY" "ALL_PROXY" "NO_PROXY" \
       "GIT_CURL_VERBOSE" "GIT_SSL_NO_VERIFY" "VAGRANT_LOG" \
       "VAGRANT_HTTP_PROXY" "VAGRANT_HTTPS_PROXY" "VAGRANT_FTP_PROXY" "VAGRANT_NO_PROXY" \
       "VAGRANT_ENV_HTTP_PROXY" "VAGRANT_ENV_HTTPS_PROXY" "VAGRANT_ENV_FTP_PROXY" "VAGRANT_ENV_NO_PROXY" \
       "VAGRANT_APT_HTTP_PROXY" "VAGRANT_APT_HTTPS_PROXY" "VAGRANT_APT_FTP_PROXY" "VAGRANT_YUM_HTTP_PROXY"
    )
    for i in "${variables[@]}"; do unset $i; done
-   echo -e "\nProxy-related environment variables removed."
+   
+   #GIT
+   git config --global --unset http.proxy
+   
+   #NPM
+   npm config delete proxy
+   npm config delete https-proxy
+   
+   echo -e "\nProxy-related configs environment variables removed."
 }

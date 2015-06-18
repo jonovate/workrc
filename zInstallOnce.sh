@@ -38,15 +38,12 @@ echo " DONE"
 source ~/.bashrc
 
 echo "Configuring git...."
-git config --global http.proxy $work_proxy
 git config --global user.email $git_email
 git config --global user.name $git_name
 git config --global credential.helper $git_cred_helper
 echo " DONE"
 
 echo "Configuring npm...."
-npm config set proxy $work_proxy
-npm config set https-proxy $work_proxy
 echo " DONE"
 
 echo "Configuring vim..."
