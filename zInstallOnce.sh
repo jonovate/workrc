@@ -20,43 +20,58 @@ vim_runtime=~/.vim_runtime
 echo -e "\n\n###########\n# .workrc #\n###########" >> ~/.bashrc
 
 echo "Adding proxy...."
-echo " Proxy: $work_proxy"
+echo "   Proxy: $work_proxy"
 echo -e "\nexport WORK_PROXY=\"$work_proxy\"\n" >> ~/.bashrc
 
 export WORK_PROXY=$work_proxy
 echo -e "if [ -s ~/.workrc/proxy ]; then
     source ~/.workrc/proxy
 fi" >> ~/.bashrc
-echo " DONE"
+echo "   DONE"
 
 echo "Adding extract...."
 echo -e "\nif [ -s ~/.workrc/extract ]; then
     source ~/.workrc/extract
 fi" >> ~/.bashrc
-echo " DONE"
+echo "   DONE"
 
 source ~/.bashrc
 
+#GIT
 echo "Configuring git...."
-git config --global user.email $git_email
-git config --global user.name $git_name
-git config --global credential.helper $git_cred_helper
-echo " DONE"
+if hash git 2>/dev/null; then
+   git config --global user.email $git_email
+   git config --global user.name $git_name
+   git config --global credential.helper $git_cred_helper
+   echo "   DONE"
+else
+   echo "   WARNING: git was not found"
+fi
 
+#MVN
+echo "Configuring maven...."
+echo "   NO ACTION - Check settings.xml. See ./samples/maven/"
+
+#NPM
 echo "Configuring npm...."
-echo " DONE"
+if hash npm 2>/dev/null; then
+   echo "   NO ACTION"
+else
+   echo "   WARNING: npm was not found"
+fi
+
 
 echo "Configuring vim..."
 if [[ -d  $vim_runtime/ ]]; then
-    echo " (already setup)"
+    echo "   (already setup)"
 else
     mkdir $vim_runtime && cd $vim_runtime
     git clone --quiet $vim_git_url .
     sh install_awesome_vimrc.sh > /dev/null 2>&1
-    echo " DONE"
+    echo "   DONE"
 fi
 
-echo -e "----- DONE -----"
+echo -e "----- DONE -----\n"
 echo "DONE" >> $0.lok
 
 echo -e "extract \"file\" on any compressed file"

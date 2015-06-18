@@ -11,11 +11,21 @@ function proxy_on() {
       VAGRANT_APT_FTP_PROXY=$FTP_PROXY VAGRANT_YUM_HTTP_PROXY=$HTTP_PROXY
    
    #GIT
-   git config --global http.proxy $WORK_PROXY
+   if hash git 2>/dev/null; then
+      git config --global http.proxy $WORK_PROXY
+   fi   
+   
+   #MVN
+   if [ -s ~/.m2/settings.off ]; then
+      mv ~/.m2/settings.off ~/.m2/settings.xml
+   fi
    
    #NPM
-   npm config set proxy $WORK_PROXY
-   npm config set https-proxy $WORK_PROXY
+   if hash npm 2>/dev/null; then
+      npm config set proxy $WORK_PROXY
+      npm config set https-proxy $WORK_PROXY
+   fi
+   
    
    echo -e "\nProxy-related configs and environment variables set."
 }
@@ -32,11 +42,21 @@ function proxy_off() {
    for i in "${variables[@]}"; do unset $i; done
    
    #GIT
-   git config --global --unset http.proxy
+   if hash git 2>/dev/null; then
+      git config --global --unset http.proxy
+   fi
+   
+   #MVN
+   if [ -s ~/.m2/settings.xml ]; then
+    mv ~/.m2/settings.xml ~/.m2/settings.off
+   fi
    
    #NPM
-   npm config delete proxy
-   npm config delete https-proxy
+   if hash npm 2>/dev/null; then
+      npm config delete proxy
+      npm config delete https-proxy 
+   fi
+   
    
    echo -e "\nProxy-related configs environment variables removed."
 }
