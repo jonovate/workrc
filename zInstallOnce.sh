@@ -17,7 +17,11 @@ vim_git_url=https://github.com/jonovate/vimrc.git
 vim_runtime=~/.vim_runtime
 
 
-echo -e "\n\n###########\n# .workrc #\n###########" >> ~/.bashrc
+echo -e "\n\n###########\n# .workrc #\n###########\n" >> ~/.bashrc
+
+echo "Adding settings..."
+echo -e "shopt -s histappend\n" >> ~/.bashrc
+echo "   DONE"
 
 echo "Adding proxy...."
 echo "   Proxy: $work_proxy"
