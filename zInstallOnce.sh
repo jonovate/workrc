@@ -26,6 +26,7 @@ echo "   DONE"
 echo "Adding proxy...."
 echo "   Proxy: $work_proxy"
 echo -e "\nexport WORK_PROXY=\"$work_proxy\"\n" >> ~/.bashrc
+echo -e "\nexport no_proxy=\"localhost\"\n" >> ~/.bashrc
 
 export WORK_PROXY=$work_proxy
 echo -e "if [ -s ~/.workrc/proxy ]; then
