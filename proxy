@@ -9,6 +9,14 @@ function proxy_on() {
       VAGRANT_ENV_FTP_PROXY=$FTP_PROXY VAGRANT_ENV_NO_PROXY=$NO_PROXY \
       VAGRANT_APT_HTTP_PROXY=$HTTP_PROXY VAGRANT_APT_HTTPS_PROXY=$HTTPS_PROXY \
       VAGRANT_APT_FTP_PROXY=$FTP_PROXY VAGRANT_YUM_HTTP_PROXY=$HTTP_PROXY
+  
+   #Java Options
+   proxyHost=`echo $WORK_PROXY | awk -F'//|:' '{print $3}'`
+   proxyPort=`echo $WORK_PROXY | awk -F'//|:' '{print $4}'`
+   export JAVA_OPTS_PRE_PROXY=$JAVA_OPTS
+   export JAVA_OPTS="$JAVA_OPTS -Dhttp.proxyHost=$proxyHost -Dhttp.proxyPort=$proxyPort -Dhttps.proxyHost=$proxyHost -Dhttps.proxyPort=8080"
+   export JRUBY_OPTS_PRE_PROXY=$JRUBY_OPTS
+   export JRUBY_OPTS="$JRUBY_OPTS -J-Dhttp.proxyHost=$proxyHost -J-Dhttp.proxyPort=$proxyPort -J-Dhttps.proxyHost=$proxyHost -J-Dhttps.proxyPort=8080"
    
    #GIT
    if hash git 2>/dev/null; then
@@ -40,7 +48,11 @@ function proxy_off() {
       "VAGRANT_APT_HTTP_PROXY" "VAGRANT_APT_HTTPS_PROXY" "VAGRANT_APT_FTP_PROXY" "VAGRANT_YUM_HTTP_PROXY"
    )
    for i in "${variables[@]}"; do unset $i; done
-   
+    
+   #Java Options
+   export JAVA_OPTS=$JAVA_OPTS_PRE_PROXY
+   export JRUBY_OPTS=$JRUBY_OPTS_PRE_PROXY
+
    #GIT
    if hash git 2>/dev/null; then
       git config --global --unset http.proxy
